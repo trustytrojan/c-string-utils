@@ -4,7 +4,6 @@ int num_tokens(const char* s, const char* delim) {
   int n_tokens = 0;
   char _s[strlen(s)];
   strcpy(_s, s);
-  //trim_whitespace(_s);
   if(strtok(_s, delim)) ++n_tokens;
   else return 0;
   for(; strtok(NULL, delim); ++n_tokens);
