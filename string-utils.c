@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "string-utils.h"
 
 int num_tokens(const char* s, const char* delim) {
@@ -22,10 +24,9 @@ void strreplace(char* s, const char* replace_this, const char* with_this) {
   const int rt_len = strlen(replace_this);
   const int wt_len = strlen(with_this);
   const int diff = wt_len - rt_len;
-  
   for(char* _r; _r = strstr(s, replace_this);) {
     char* to_be_moved = _r + rt_len;
-    strcpy(to_be_moved+diff, to_be_moved);
+    strncpy(to_be_moved+diff, to_be_moved, strlen(to_be_moved));
     strncpy(_r, with_this, wt_len);
   }
 }
@@ -33,8 +34,8 @@ void strreplace(char* s, const char* replace_this, const char* with_this) {
 void strerase(char* s, const char* erase) {
   for(char e; e = *erase; ++erase) {
     for(char* _r; _r = strchr(s, e);) {
-      char* to_be_moved = _r + 1;
-      strcpy(to_be_moved-1, to_be_moved);
+      for(int i = 0; _r[i]; ++i)
+        _r[i] = _r[i+1];
     }
   }
 }
