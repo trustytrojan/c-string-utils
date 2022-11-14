@@ -27,6 +27,7 @@ void strreplace(char* s, const char* replace_this, const char* with_this) {
   for(char* _r; _r = strstr(s, replace_this);) {
     char* to_be_moved = _r + rt_len;
     strncpy(to_be_moved+diff, to_be_moved, strlen(to_be_moved));
+    (to_be_moved+diff)[tbm_len] = '\0';
     strncpy(_r, with_this, wt_len);
   }
 }
