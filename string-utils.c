@@ -1,4 +1,4 @@
-#include <string.h>
+#include "string-utils.h"
 
 int num_tokens(const char* s, const char* delim) {
   int n_tokens = 0;
@@ -22,10 +22,19 @@ void strreplace(char* s, const char* replace_this, const char* with_this) {
   const int rt_len = strlen(replace_this);
   const int wt_len = strlen(with_this);
   const int diff = wt_len - rt_len;
-  char* _r;
-  while(_r = strstr(s, replace_this)) {
+  
+  for(char* _r; _r = strstr(s, replace_this);) {
     char* to_be_moved = _r + rt_len;
     strcpy(to_be_moved+diff, to_be_moved);
     strncpy(_r, with_this, wt_len);
+  }
+}
+
+void strerase(char* s, const char* erase) {
+  for(char e; e = *erase; ++erase) {
+    for(char* _r; _r = strchr(s, e);) {
+      char* to_be_moved = _r + 1;
+      strcpy(to_be_moved-1, to_be_moved);
+    }
   }
 }
